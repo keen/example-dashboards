@@ -1,0 +1,93 @@
+:root {
+  --card-color: #CCC;
+  --background-color: #FAFAFA;
+}
+
+.dashboard {
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 100px;
+  grid-gap: 20px;
+  grid-row-gap: 15px;
+}
+
+body {
+  background: var(--background-color);
+}
+
+.grid-box {
+  background: var(--card-color);
+}
+
+.box1 {
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+
+.box2 {
+  grid-column-start: 3;
+    grid-column-end: 5;
+  grid-row-start: 1;
+  grid-row-end: 5;
+}
+
+.box3 {
+  grid-column-start: 2;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 4;
+}
+
+.box5 {
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 1;
+  grid-row-end: 3;
+}
+
+
+
+.box6 {
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 3;
+  grid-row-end: 5;
+}
+
+.box7 {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 5;
+  grid-row-end: 8;
+}
+
+.box8 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 4;
+  grid-row-end: 8;
+}
+
+.box9 {
+  grid-column-start: 5;
+  grid-column-end: 6;
+  grid-row-start: 5;
+  grid-row-end: 8;
+}
+
+.box10 {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 8;
+  grid-row-end: 12;
+}
+
+.box11 {
+  grid-column-start: 3;
+  grid-column-end: 6;
+  grid-row-start: 8;
+  grid-row-end: 12;
+}

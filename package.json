@@ -1,0 +1,22 @@
+{
+  "name": "@keen.io/dataviz-dashboards",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "prettier": "prettier --write 'src/**/*.{js,json}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keen/example-dashboards.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/keen/example-dashboards/issues"
+  },
+  "homepage": "https://github.com/keen/example-dashboards#readme",
+  "devDependencies": {
+    "prettier": "^2.0.4"
+  }
+}
