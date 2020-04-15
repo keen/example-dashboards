@@ -4,6 +4,13 @@ const client = new Keen({
     '9e79789cf22c62efd15a50ed2e1cbe9541fd59b03f5b87e5f4a5403a83a5e00a3f364d2c8268ea4dd0d904b248bbe5da860e00a05a98039ed8a936f07f440f55b9be3d04acde0a3e3f01f52dd2da545473d415af7c4e7e10926a671f3578536f',
 });
 
+const filters = [
+  {property_name: "channel", property_type: "String", operator: "ne", property_value: "Bing"},
+  {property_name: "channel", property_type: "String", operator: "ne", property_value: "Snapchat"},
+  {property_name: "channel", property_type: "String", operator: "ne", property_value: "Linkedin"},
+  {property_name: "channel", property_type: "String", operator: "ne", property_value: "Twitter"}
+];
+
 /* Views by Channel */
 
 const viewsByChannel = new KeenDataviz({
@@ -24,6 +31,7 @@ const viewsByChannelQuery = client
     analysis_type: 'count',
     event_collection: 'ad_campaing_view',
     group_by: ['channel'],
+    filters,
     timeframe: {
       start: '2020-04-01T00:00:00.000-00:00',
       end: '2020-04-15T00:00:00.000-00:00',
@@ -35,7 +43,7 @@ const viewsByChannelQuery = client
 
 const costMetric = new KeenDataviz({
   type: 'metric',
-  container: '#chart-03 ',
+  container: '#chart-09',
   settings: {
     type: 'difference',
     labelPrefix: '$',
@@ -70,18 +78,20 @@ const todayCost = client
 
 const totalCostGauge = new KeenDataviz({
   type: 'gauge',
-  container: '#chart-01',
+  container: '#chart-07',
   settings: {
-    //  colorMode: 'discrete',
-    colorSteps: 3,
+    theme: {
+      colors: [
+        '#E1E2E4',
+        '#8FC2D3'
+      ],
+    },
+    colorSteps: 2,
     maxValue: 25000,
   },
   widget: {
     title: {
       content: 'Advertisement Budget',
-    },
-    subtitle: {
-      content: 'Total money spend',
     },
   },
 });
@@ -89,7 +99,7 @@ const totalCostGauge = new KeenDataviz({
 /* MQL over time */
 
 const mqlByChannel = new KeenDataviz({
-  container: '#chart-02',
+  container: '#chart-05',
   type: 'area',
   settings: {
     margins: { top: 20, right: 30, bottom: 70, left: 40 },
@@ -106,11 +116,12 @@ const mqlByChannel = new KeenDataviz({
     },
   },
   widget: {
-    title: {
-      content: 'Marketing Qualified Leads',
+    legend: {
+      layout: 'vertical',
+      position: 'right',
     },
-    subtitle: {
-      content: 'By channel',
+    title: {
+      content: 'MQLs last week by channel',
     },
   },
 });
@@ -120,6 +131,7 @@ client
     event_collection: 'ad_campaing_mql',
     group_by: 'channel',
     interval: 'daily',
+    filters,
     timeframe: {
       start: '2020-04-01T00:00:00.000Z',
       end: '2020-04-12T00:00:00.000Z',
@@ -146,6 +158,7 @@ const campaingTotalCostsQuery = client
 const campaingConversionQuery = client.query({
   analysis_type: 'count',
   event_collection: 'ad_campaing_click',
+  filters,
   group_by: ['channel'],
   timeframe: {
     start: '2020-04-01T00:00:00.000-00:00',
@@ -157,6 +170,7 @@ const campaingCostsQuery = client.query({
   analysis_type: 'sum',
   event_collection: 'ad_campaing_cost',
   target_property: 'cost',
+  filters,
   group_by: ['channel'],
   timeframe: {
     start: '2020-04-01T00:00:00.000-00:00',
@@ -168,6 +182,7 @@ const campaingViewQuery = client.query({
   analysis_type: 'count',
   event_collection: 'ad_campaing_view',
   group_by: ['channel'],
+  filters,
   timeframe: {
     start: '2020-04-01T00:00:00.000-00:00',
     end: '2020-04-15T00:00:00.000-00:00',
@@ -176,7 +191,7 @@ const campaingViewQuery = client.query({
 
 const bubbleChart = new KeenDataviz({
   type: 'bubble',
-  container: '#chart-07',
+  container: '#chart-02',
   mappings: {
     '0.ad_campaing_click.count.keen.value': 'Clicks',
     '1.ad_campaing_view.count.keen.value': 'Views',
@@ -204,7 +219,7 @@ client
 
 const clicksMetric = new KeenDataviz({
   type: 'metric',
-  container: '#chart-06',
+  container: '#chart-03',
   widget: {
     title: {
       content: 'Total conversions',
@@ -230,7 +245,7 @@ client
 
 const impressionsMetric = new KeenDataviz({
   type: 'metric',
-  container: '#chart-05',
+  container: '#chart-01',
   widget: {
     title: {
       content: 'Total impressions',
@@ -258,7 +273,7 @@ const mqlCostOverTime = new KeenDataviz({
   container: '#chart-08',
   type: 'line',
   settings: {
-    margins: { top: 20, right: 30, bottom: 70, left: 40 },
+    margins: { top: 20, right: 30, bottom: 60, left: 40 },
     curve: 'spline',
     theme: {
       gridX: {
@@ -266,17 +281,18 @@ const mqlCostOverTime = new KeenDataviz({
       },
       axisX: {
         labels: {
-          radiusAngle: 45,
+          radiusAngle: 25,
         },
       },
     },
   },
   widget: {
-    title: {
-      content: 'Marketing Qualified Leads',
+    legend: {
+      position: 'right',
+      layout: 'vertical',
     },
-    subtitle: {
-      content: 'Daily cost per channel',
+    title: {
+      content: 'MQLs costs',
     },
   },
 });
@@ -286,6 +302,7 @@ client
     analysis_type: 'sum',
     event_collection: 'ad_campaing_mql',
     group_by: 'channel',
+    filters,
     interval: 'daily',
     target_property: 'cost',
     timeframe: {
@@ -301,13 +318,27 @@ client
 
 const mqlMetric = new KeenDataviz({
   type: 'metric',
-  container: '#chart-09',
+  container: '#chart-04',
+  settings: {
+    theme: {
+      metric: {
+        label: {
+          typography: {
+            fontColor: '#fff',
+          }
+        }
+      }
+    }
+  },
   widget: {
-    title: {
-      content: 'Marketing Qualified Leads',
+    card: {
+      backgroundColor: '#6c9973',
     },
-    subtitle: {
-      content: 'Total',
+    title: {
+      typography: {
+        fontColor: '#fff',
+      },
+      content: 'Total MQLs',
     },
   },
 });
@@ -329,20 +360,23 @@ client
 
 const countryViews = new KeenDataviz({
   type: 'bar',
-  container: '#chart-11',
+  container: '#chart-06',
   settings: {
+    groupMode: 'stacked',
+    margins: { top: 10, left: 30, bottom: 30, right: 10 },
     theme: {
       gridX: {
         enabled: false
-      }
+      },
     }
   },
   widget: {
+    legend: {
+      position: 'right',
+      layout: 'vertical',
+    },
     title: {
       content: 'Advertisement Cost',
-    },
-    subtitle: {
-      content: 'Daily by channel',
     },
   },
 });
@@ -352,6 +386,7 @@ client
     analysis_type: 'sum',
     event_collection: 'ad_campaing_mql',
     group_by: 'channel',
+    filters,
     interval: 'daily',
     target_property: 'cost',
     timeframe: {
