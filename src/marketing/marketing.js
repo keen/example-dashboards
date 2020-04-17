@@ -5,10 +5,30 @@ const client = new Keen({
 });
 
 const filters = [
-  {property_name: "channel", property_type: "String", operator: "ne", property_value: "Bing"},
-  {property_name: "channel", property_type: "String", operator: "ne", property_value: "Snapchat"},
-  {property_name: "channel", property_type: "String", operator: "ne", property_value: "Linkedin"},
-  {property_name: "channel", property_type: "String", operator: "ne", property_value: "Twitter"}
+  {
+    property_name: 'channel',
+    property_type: 'String',
+    operator: 'ne',
+    property_value: 'Bing',
+  },
+  {
+    property_name: 'channel',
+    property_type: 'String',
+    operator: 'ne',
+    property_value: 'Snapchat',
+  },
+  {
+    property_name: 'channel',
+    property_type: 'String',
+    operator: 'ne',
+    property_value: 'Linkedin',
+  },
+  {
+    property_name: 'channel',
+    property_type: 'String',
+    operator: 'ne',
+    property_value: 'Twitter',
+  },
 ];
 
 /* Views by Channel */
@@ -46,14 +66,14 @@ const costMetric = new KeenDataviz({
   container: '#chart-09',
   settings: {
     type: 'difference',
-    labelPrefix: '$',
-  },
-  widget: {
-    title: {
-      content: 'Marketing Qualified Leads',
-    },
-    subtitle: {
-      content: 'Daily cost compare',
+    caption: 'MQLs cost',
+    formatValue: (v) => `$${v}`,
+    theme: {
+      metric: {
+        icon: {
+          enabled: true,
+        },
+      },
     },
   },
 });
@@ -81,10 +101,7 @@ const totalCostGauge = new KeenDataviz({
   container: '#chart-07',
   settings: {
     theme: {
-      colors: [
-        '#E1E2E4',
-        '#8FC2D3'
-      ],
+      colors: ['#E1E2E4', '#8FC2D3'],
     },
     colorSteps: 2,
     maxValue: 25000,
@@ -220,12 +237,14 @@ client
 const clicksMetric = new KeenDataviz({
   type: 'metric',
   container: '#chart-03',
-  widget: {
-    title: {
-      content: 'Total conversions',
-    },
-    subtitle: {
-      content: 'Advertisement clicks',
+  settings: {
+    caption: 'Total conversions',
+    theme: {
+      metric: {
+        icon: {
+          enabled: true,
+        },
+      },
     },
   },
 });
@@ -246,13 +265,16 @@ client
 const impressionsMetric = new KeenDataviz({
   type: 'metric',
   container: '#chart-01',
-  widget: {
-    title: {
-      content: 'Total impressions',
+  settings: {
+    theme: {
+      metric: {
+        icon: {
+          style: 'regular',
+          enabled: true,
+        },
+      },
     },
-    subtitle: {
-      content: 'Advertisement views',
-    },
+    caption: 'Total impressions',
   },
 });
 
@@ -320,25 +342,29 @@ const mqlMetric = new KeenDataviz({
   type: 'metric',
   container: '#chart-04',
   settings: {
+    caption: 'Total MQLs',
     theme: {
       metric: {
-        label: {
+        icon: {
+          enabled: true,
+          style: 'regular',
+        },
+        caption: {
           typography: {
             fontColor: '#fff',
-          }
-        }
-      }
-    }
+          },
+        },
+        value: {
+          typography: {
+            fontColor: '#fff',
+          },
+        },
+      },
+    },
   },
   widget: {
     card: {
       backgroundColor: '#6c9973',
-    },
-    title: {
-      typography: {
-        fontColor: '#fff',
-      },
-      content: 'Total MQLs',
     },
   },
 });
@@ -363,12 +389,13 @@ const countryViews = new KeenDataviz({
   container: '#chart-06',
   settings: {
     groupMode: 'stacked',
+    barPadding: 0.5,
     margins: { top: 10, left: 30, bottom: 30, right: 10 },
     theme: {
       gridX: {
-        enabled: false
+        enabled: false,
       },
-    }
+    },
   },
   widget: {
     legend: {
