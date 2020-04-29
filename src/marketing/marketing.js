@@ -46,18 +46,16 @@ const viewsByChannel = new KeenDataviz({
   },
 });
 
-const viewsByChannelQuery = client
-  .query({
-    analysis_type: 'count',
-    event_collection: 'ad_campaing_view',
-    group_by: ['channel'],
-    filters,
-    timeframe: {
-      start: '2020-04-01T00:00:00.000-00:00',
-      end: '2020-04-15T00:00:00.000-00:00',
-    },
-  })
-  .then((res) => viewsByChannel.render(res));
+const viewsByChannelQuery = client.query({
+  analysis_type: 'count',
+  event_collection: 'ad_campaing_view',
+  group_by: ['channel'],
+  filters,
+  timeframe: {
+    start: '2020-04-01T00:00:00.000-00:00',
+    end: '2020-04-15T00:00:00.000-00:00',
+  },
+});
 
 /* Today Costs */
 
@@ -71,6 +69,7 @@ const costMetric = new KeenDataviz({
     theme: {
       metric: {
         icon: {
+          type: 'user-solid',
           enabled: true,
         },
       },
@@ -90,7 +89,6 @@ const todayCost = client
     },
   })
   .then((res) => {
-    console.log(res, 'kwa');
     costMetric.render(res);
   });
 
@@ -242,6 +240,7 @@ const clicksMetric = new KeenDataviz({
     theme: {
       metric: {
         icon: {
+          type: 'click-solid',
           enabled: true,
         },
       },
@@ -269,7 +268,8 @@ const impressionsMetric = new KeenDataviz({
     theme: {
       metric: {
         icon: {
-          style: 'regular',
+          style: 'solid',
+          type: 'eye-solid',
           enabled: true,
         },
       },
@@ -347,7 +347,8 @@ const mqlMetric = new KeenDataviz({
       metric: {
         icon: {
           enabled: true,
-          style: 'regular',
+          type: 'users-solid',
+          style: 'solid',
         },
         caption: {
           typography: {

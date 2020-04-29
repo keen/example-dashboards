@@ -2,41 +2,78 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Keen IO Dashboard - Marketing Campaing</title>
+  <title>Keen IO Dashboard - Product Analytics</title>
   <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
   <link rel="stylesheet" type="text/css" href="./styles.css" />
-  <link rel="stylesheet" type="text/css" href="https://staging-static.keen.io/assets/keen-fonts.css" />
+  <link rel="stylesheet" type="text/css" href="https://static.keen.io/assets/keen-fonts.css" />
   <script src="https://cdn.jsdelivr.net/npm/keen-analysis@3" type="text/javascript"></script>
-  <script src="./umd/dataviz.min.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@keen.io/dataviz@latest/dist/dataviz.min.js" type="text/javascript"></script>
   <script type="text/javascript" src="./product.js"></script>
 </head>
 <body>
   <header class="header">
     <img class="header__brand" src="./assets/keen-logo.png" alt="Keen" />
-    <div class="header__title">Product analytics</div>
-    <div class="header__description">
-      Present the marketing overview to your team.<br />
-      Everyone can see the impact on different initiatives.
-    </div>
+    <div class="header__title">Product analytics dashboard</div>
   </header>
-  <div class="section">
-    <div class="section__title">Campaings performance</div>
-  </div>
-  <div class="dashboard">
-    <div id="chart-01" class="dashboard__box dashboard__box--1"></div>
-    <div id="chart-02" class="dashboard__box dashboard__box--2"></div>
-    <div id="chart-03" class="dashboard__box dashboard__box--3"></div>
-    <div id="chart-04" class="dashboard__box dashboard__box--4"></div>
-    <div id="chart-05" class="dashboard__box dashboard__box--5"></div>
-  </div>
-  <div class="section section--clear">
-    <div class="section__title">Marketing costs</div>
-  </div>
-  <div class="dashboard">
-    <div id="chart-06" class="dashboard__box dashboard__box--6"></div>
-    <div id="chart-07" class="dashboard__box dashboard__box--7"></div>
-    <div id="chart-08" class="dashboard__box dashboard__box--8"></div>
-    <div id="chart-09" class="dashboard__box dashboard__box--9"></div>
+  <div class="container">
+    <div class="navigation">
+        <div class="navigation__menu">
+            <div class="navigation__item navigation__item--active" data-dashboard="economics">Product economics</div>
+            <div class="navigation__item" data-dashboard="engagement">Product engagement</div>
+        </div>
+    </div>
+    <section class="dashboard-page" data-dashboard="economics">
+    <div class="dashboard">
+      <div id="chart-01" class="dashboard__box dashboard__box--1"></div>
+
+      <div class="subgrid">
+        <div class="dashboard__title dashboard__title--1">This month performance</div>
+        <div id="chart-02" class="dashboard__box dashboard__box--2"></div>
+        <div id="chart-03" class="dashboard__box dashboard__box--3"></div>
+        <div id="chart-04" class="dashboard__box dashboard__box--4"></div>
+        <div id="chart-05" class="dashboard__box dashboard__box--5"></div>
+      </div>
+      <div id="chart-06" class="dashboard__box--6"></div>
+      <div id="chart-07" class="dashboard__box--7"></div>
+    </div>
+  </section>
+  <section class="dashboard-page hidden" data-dashboard="engagement">
+      <div class="dashboard">
+        <div id="chart-08" class="dashboard__box dashboard__box--8"></div>
+        <div id="chart-09" class="dashboard__box dashboard__box--9"></div>
+        <div id="chart-10" class="dashboard__box--10"></div>
+      </div>
+      <div class="title">Sessions</div>
+      <div class="dashboard-equal-split">
+        <div id="chart-11" class="dashboard__box dashboard__box--11"></div>
+        <div id="chart-12" class="dashboard__box dashboard__box--12"></div>
+      </div>
+      <div class="title">Net Promoter Score</div>
+      <div class="dashboard-equal-split">
+        <div id="chart-13" class="dashboard__box dashboard__box--13"></div>
+        <div id="chart-14" class="dashboard__box dashboard__box--14"></div>
+      </div>
+  </section>
   </div>
 </body>
+<script type="text/javascript">
+  function clearNavigation() {
+    document.querySelectorAll('.navigation__item').forEach((el) => {
+      el.classList.remove('navigation__item--active');
+    });
+  }
+
+  const navItems = document.querySelectorAll('.navigation__item');
+
+  navItems.forEach((element) => {
+    element.addEventListener('click', (e) => {
+      clearNavigation();
+      element.classList.add('navigation__item--active');
+      const dashboard = e.target.getAttribute('data-dashboard');
+
+      document.querySelectorAll('.dashboard-page').forEach((el) => el.classList.add('hidden'));
+      document.querySelector(`.dashboard-page[data-dashboard="${dashboard}"]`).classList.remove('hidden');
+    });
+  });
+</script>
 </html>
