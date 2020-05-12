@@ -16,12 +16,12 @@ const WIDGET_TITLE_TYPOGRAPHY = {
   fontSize: 24,
 };
 
-const METRIC_LIGHT_THEME = {
+const getMetricLightTheme = (icon = 'brand') => ({
   metric: {
     icon: {
       margins: { top: 30, left: 30, bottom: 0, right: 20 },
       enabled: true,
-      type: 'users-outline',
+      type: icon,
       style: 'regular',
     },
     caption: {
@@ -35,9 +35,9 @@ const METRIC_LIGHT_THEME = {
       },
     },
   },
-};
+});
 
-const METRIC_DARK_THEME = {
+const getMetricDarkTheme = (icon = 'brand') => ({
   metric: {
     value: {
       typography: {
@@ -53,9 +53,10 @@ const METRIC_DARK_THEME = {
       enabled: true,
       margins: { top: 30, left: 30, bottom: 0, right: 20 },
       style: 'regular',
+      type: icon
     },
   },
-};
+});
 
 const cartesianChartTheme = {
   axisX: {
@@ -80,6 +81,10 @@ const cartesianChartTheme = {
   },
   gridX: {
     enabled: false,
+  },
+  hoverBar: {
+    enabled: true,
+    type: 'light',
   },
   colors: ['#7ABD8E', '#E66C37'],
 };
@@ -224,12 +229,13 @@ const subscriptionCancel = client.query({
 client.run([totalUsers, subscriptionCancel]).then((res) => {
   const total = res[0].result;
   const canceled = res[1].result;
+  const theme = getMetricDarkTheme('churn-outline');
 
   new KeenDataviz({
     type: 'metric',
     container: '#chart-04',
     settings: {
-      theme: METRIC_DARK_THEME,
+      theme,
       formatValue: (v) => `${v}%`,
       caption: 'Churn',
       keys: ['churn'],
@@ -275,6 +281,7 @@ const churnCost = new KeenDataviz({
           enabled: true,
           margins: { top: 30, left: 30, bottom: 0, right: 20 },
           style: 'regular',
+          type: 'churn-money-outline'
         },
       },
     },
@@ -305,7 +312,7 @@ const revenueNewUsers = new KeenDataviz({
     },
   },
   settings: {
-    theme: METRIC_LIGHT_THEME,
+    theme: getMetricLightTheme('money-outline'),
     formatValue: (v) => `$${v}`,
     caption: 'Revenue from new accounts',
   },
@@ -333,7 +340,7 @@ const newUsers = new KeenDataviz({
     },
   },
   settings: {
-    theme: METRIC_LIGHT_THEME,
+    theme: getMetricLightTheme('users-outline'),
     caption: 'New Users',
   },
 });
@@ -588,7 +595,7 @@ const referralPartners = new KeenDataviz({
     },
   },
   settings: {
-    theme: METRIC_DARK_THEME,
+    theme: getMetricDarkTheme(),
     caption: 'Referral partners',
   },
 });
