@@ -11,7 +11,7 @@ body {
 }
 
 .header {
-  padding: 40px 40px 40px 190px;
+  padding: 30px 40px 30px 190px;
   background-color: rgba(201, 208, 223, 0.2);
   display: flex;
   align-items: center;

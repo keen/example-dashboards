@@ -63,9 +63,9 @@ const getHeaderTime = () => {
 
   const timeParts = currentTime.toLocaleTimeString([], {hour12 : true, hour:  "numeric", minute: "numeric"}).split(' ');
 
-  weekDay.innerHTML = currentTime.toLocaleDateString('default', { weekday: 'short' });
+  weekDay.innerHTML = currentTime.toLocaleDateString('en-US', { weekday: 'short' });
   day.innerHTML = currentTime.getDate();
-  month.innerHTML = currentTime.toLocaleDateString('default', { month: 'long' });
+  month.innerHTML = currentTime.toLocaleDateString('en-US', { month: 'long' });
   time.innerHTML = timeParts[0];
   period.innerHTML = timeParts[1].toUpperCase();
   
@@ -264,8 +264,8 @@ const generateWaterConsumptionData = () => {
   const arr = [];
 
   for (let i = DAYS; i > 0; i--) {
-    coldWater += rand(10, 100);
-    hotWater += rand(2, 60);
+    coldWater += rand(5, 20);
+    hotWater += rand(2, 10);
     const date = new Date(Date.now()-i*24*60*60*1000).toString();
     arr.push({
       coldWater,
@@ -287,23 +287,32 @@ const waterConsumptionChart = new KeenDataviz({
   settings: {
     labelSelector: "name",
     keys: ['coldWater', 'hotWater'],
-    strokeWidth: 0,
-    markRadius: 0,
+    strokeWidth: 1,
+    markRadius: 2,
     groupMode: 'stacked',
     stackMode: 'normal',
+    xScaleSettings: {
+      type: 'time',
+      precision: 'week',
+      formatLabel: v => new Date(v).toLocaleDateString('default', { month: 'long', day: 'numeric' }),
+    },
     theme: {
       colors: ['#BED9E6', '#D64C4C'],
       axisX: {
-        enabled: false
+        labels: {
+          typography: AXIS_X
+        }
       },
       axisY: {
-        enabled: false
+        labels: {
+          typography: AXIS_Y
+        }
       },
       gridX: {
-        enabled: false
+        color: '#E1E2E4'
       },
       gridY: {
-        enabled: false
+        color: '#E1E2E4'
       },
       tooltip: {
         labels: {
@@ -312,8 +321,8 @@ const waterConsumptionChart = new KeenDataviz({
       }
     },
     margins: {
-      top: 10,
-      left: 30,
+      top: 30,
+      left: 50,
       right: 20,
       bottom: 30,
     },
@@ -405,7 +414,7 @@ const powerConsumptionChart = new KeenDataviz({
     maxValue: 'auto',
     labelSelector: "name",
     keys: ['powerConsumption'],
-    markRadius: 1,
+    markRadius: 2,
     xScaleSettings: {
       type: 'time',
       precision: 'week',
@@ -561,6 +570,7 @@ const totalCostChart = new KeenDataviz({
       bottom: 50,
     },
     barPadding: 0.7,
+    formatValue: v => `$${v}`,
     xScaleSettings: {
       type: 'time',
       precision: 'month',
@@ -574,7 +584,9 @@ const totalCostChart = new KeenDataviz({
         }
       },
       axisY: {
-        enabled: false,
+        labels: {
+          typography: AXIS_Y
+        }
       },
       gridX: {
         enabled: false,
