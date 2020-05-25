@@ -405,7 +405,7 @@ const powerConsumptionChart = new KeenDataviz({
     maxValue: 'auto',
     labelSelector: "name",
     keys: ['powerConsumption'],
-    markRadius: 0,
+    markRadius: 1,
     xScaleSettings: {
       type: 'time',
       precision: 'week',
