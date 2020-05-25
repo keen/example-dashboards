@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Keen IO Dashboard - Your Smart Home</title>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no' />
+  <link rel="stylesheet" type="text/css" href="./styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/keen-analysis@3" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@keen.io/dataviz@latest/dist/dataviz.min.js" type="text/javascript"></script>
+  <script type="text/javascript" src="./iot.js"></script>
+</head>
+<body>
+  <header class="header">
+    <h1 class="header__title">Your Smart Home - Monitoring</h1>
+    <div class="header__date">
+      <span class="header__weekday"></span>
+      <span class="header__day"></span>
+      <span class="header__month"></span>
+      <span class="header__time"></span>
+      <span class="header__period"></span>
+    </div>
+  </header>
+  <nav class="nav">
+    <ul class="nav__list">
+      <li class="nav__item">
+        <div class="nav__link">
+          <img class="nav__icon" alt="" src="assets/Keen-icon-dark.svg" />
+        </div>
+      </li>
+      <li class="nav__item">
+        <a href="" class="nav__link nav__link--active" data-dashboard="overview">
+          <img class="nav__icon" alt="" src="assets/house.svg" />
+          Overview
+        </a>
+      </li>
+      <li class="nav__item">
+        <a href="" class="nav__link" data-dashboard="usage">
+          <img class="nav__icon" alt="" src="assets/usage.svg" />
+          Usage
+        </a>
+      </li>
+      <li class="nav__item">
+        <a href="" class="nav__link" data-dashboard="costs">
+          <img class="nav__icon" alt="" src="assets/costs.svg" />
+          Costs
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="dashboard">
+    <section data-dashboard="overview" class="dashboard-page">
+      <div id="overview">
+        <div id="chart-01" class="dashboard__box dashboard__box--1"></div>
+        <div id="chart-02" class="dashboard__box dashboard__box--2"></div>
+        <div id="chart-03" class="dashboard__box dashboard__box--3"></div>
+        <div id="chart-04" class="dashboard__box dashboard__box--4"></div>
+        <div id="chart-05" class="dashboard__box dashboard__box--5"></div>
+      </div>
+    </section>
+    <section data-dashboard="usage" class="dashboard-page hidden">
+      <div id="usage">
+        <h6 class="dashboard__cycle">Current billing cycle: <span class="cycle__date"></span></h6>
+        <div id="chart-06" class="dashboard__box dashboard__box--6"></div>
+        <div id="chart-07" class="dashboard__box dashboard__box--7"></div>
+        <div id="chart-08" class="dashboard__box dashboard__box--8"></div>
+        <div id="chart-09" class="dashboard__box dashboard__box--9"></div>
+      </div>
+    </section>
+    <section data-dashboard="costs" class="dashboard-page hidden">
+      <div id="costs">
+        <h6 class="dashboard__cycle">Current billing cycle: <span class="cycle__date"></span></h6>
+        <div id="chart-10" class="dashboard__box dashboard__box--10"></div>
+        <div id="chart-11" class="dashboard__box dashboard__box--11"></div>
+        <div id="chart-12" class="dashboard__box dashboard__box--12"></div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
